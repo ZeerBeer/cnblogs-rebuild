@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer" />
+    <title>Title</title>
+    <script src="module/hljs.js"></script>
+    <script src="module/vue.js"></script>
+    <script src="module/http.js"></script>
+    <script src="module/qs.js"></script>
+    <link rel="stylesheet" href="module/css/awesome.css">
+    <link rel="stylesheet" href="module/css/solar-dark.css">
+
+</head>
+<body>
+
+
+<!--头部-->
+<template id="blog-header-tmp">
+    <hearder id="blog-header">
+        <div id="title">{{title}}</div>
+        <div id="subtitle">{{subtitle}}</div>
+        <ul>
+            <li v-for="menu in menus" :key="menu.name">
+                <i class="fa fa-fw" :class="'fa-' + menu.icon"></i>
+                {{menu.name}}
+            </li>
+        </ul>
+    </hearder>
+</template>
+
+<script>
+    const BlogHeader = {
+        template: '#blog-header-tmp',
+        data() {
+            return {
+                title: 'Zeer x Beer',
+                subtitle: '余自必, 犹必然',
+                menus: [
+                    {icon: 'bell', name: 'Home'},
+                    {icon: 'book', name: 'Docs'},
+                ]
+            }
+        },
+    }
+</script>
+
+<style>
+    #blog-header {
+
+        height: 16rem;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #blog-header #title {
+        margin-top: 6rem;
+
+        padding-left: 2rem;
+        padding-right: 2rem;
+
+        background: #222;
+
+        font-size: 1.375em;
+        font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-weight: normal;
+        color: #fff;
+    }
+
+
+    #blog-header #subtitle {
+        color: #999;
+        font-size: 0.8125em;
+        margin: 10px 0;
+    }
+
+    #blog-header ul {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        list-style: none;
+
+        padding: 1rem 0 0;
+
+        margin: 0;
+
+        color: #555;
+    }
+
+    #blog-header ul li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin-left: .5rem;
+        margin-right: .5rem;
+
+        font-size: 0.8125em;
+    }
+</style>
+<!--头部-->
+
+
+<!--文章-->
+<template id="blog-post-tmp">
+    <article id="blog-post">
+        <header><h2> {{item.title}} </h2></header>
+        <div v-html="moreFilterData"></div>
+    </article>
+</template>
+
+<script>
+    const BlogPost = {
+        template: '#blog-post-tmp',
+        data() {
+            return {}
+        },
+        props: [
+            "item"
+        ],
+        computed: {
+            moreFilterData() {
+
+                return this.item.data.slice(0, this.item.data.indexOf("<!--more-->") === -1 ?
+                    this.item.data.length : this.item.data.indexOf("<!--more-->"))
+
+            },
+        },
+        mounted() {
+
+
+        }
+    }
+
+    // 最大最小控制内边距
+    // 一样负责外边距
+</script>
+
+<style>
+    #blog-post {
+        max-width: 50rem;
+        width: 100%;
+        min-width: 50rem;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin-right: 4rem;
+        margin-left: 4rem;
+    }
+
+    #blog-post header h2 {
+        color: #2c3e50;
+        line-height: 1.25;
+        font-weight: 600;
+        font-size: 1.65rem;
+    }
+
+
+    #blog-post h3 {
+        font-size: 1.35rem;
+    }
+
+    #blog-post blockquote {
+        background-color: #eee;
+
+        padding: 1.5rem;
+
+        display: flex;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+
+    #blog-post img {
+        width: 100%;
+    }
+
+    #blog-post div {
+        width: 100%;
+    }
+
+
+    #blog-post pre code {
+        padding: 1rem;
+    }
+
+    #blog-post code {
+        font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
+    }
+</style>
+<!--文章-->
+
+<!--全局-->
+<div id="app">
+    <blog-header></blog-header>
+
+    <blog-post v-for="item in listData" :item="item"></blog-post>
+</div>
+
+<script>
+
+    new Vue({
+        data: {
+            message: 'Hello Vue!',
+            listData: []
+        },
+        components: {
+            BlogHeader: BlogHeader,
+            BlogPost: BlogPost,
+        },
+        async mounted() {
+
+            const res = await axios({
+                method: "POST",
+                url: `http://cnblogs.zeer.beer/token`,
+                data: Qs.stringify({
+                    client_id: '4e1ae68e-f4af-43d5-bb94-ed7f00babcb4',
+                    client_secret: 'VNA775gWdBT-4hPytT_Sfp6rM4lAgJbhezYp5q0yN_4r8zPSJ5iFsRuMCNNVdnHUhay_nx5-8-jHEWUr',
+                    grant_type: 'client_credentials',
+                }),
+                headers: {
+                    'content-type': "application/x-www-form-urlencoded;"
+                }
+            })
+
+            console.log(res)
+
+            const cnblogsToken = res.data.access_token
+
+            console.log(cnblogsToken)
+
+            localStorage.cnblogsToken = cnblogsToken
+
+            console.log(localStorage.cnblogsToken)
+
+            const list = await axios({
+                method: "GET",
+                url: `http://cnblogs.zeer.beer/api/blogs/zeerbeer/posts?pageIndex=1`,
+                data: {},
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.cnblogsToken
+                },
+            })
+
+            console.log(list)
+
+            const listData = list.data
+
+
+            console.log(listData)
+
+            const tasks = []
+
+            listData.forEach(e => {
+                console.log(e)
+
+                const promise = axios({
+                    method: "GET",
+                    url: `http://cnblogs.zeer.beer/api/blogposts/` + e.Id + `/body`,
+                    data: {},
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.cnblogsToken
+                    },
+                })
+
+                tasks.push(promise)
+
+                promise.then(res => {
+                    res.id = e.Id
+                    res.title = e.Title
+                    res.date = e.PostDate
+                    console.log(res)
+
+                })
+
+
+            })
+
+            await Promise.all(tasks).then(res => {
+                console.log(res)
+                this.listData = res.sort((o1, o2) => {
+                    return o1.date - o2.date
+                })
+
+            })
+
+            document.querySelectorAll('pre code').forEach((block) => {
+                console.log(1)
+                hljs.highlightBlock(block);
+            })
+
+        },
+        updated(){
+
+        }
+    }).$mount('#app')
+
+</script>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+
+    }
+
+    #app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        color: #2c3e50;
+    }
+
+    #app h1, h2, h3, h4, h5 {
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+        font-weight: 600;
+        line-height: 1.25;
+
+    }
+
+
+    #app p {
+        display: flex;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+
+        font-size: 1rem;
+
+        line-height: 1.7;
+    }
+
+    ::-webkit-scrollbar { /*滚动条整体样式*/
+
+        width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
+
+        height: 5px;
+
+    }
+
+    ::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+
+        border-radius: 10px;
+
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+
+        background: #535353;
+
+    }
+
+    ::-webkit-scrollbar-track { /*滚动条里面轨道*/
+
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+
+        border-radius: 10px;
+
+        background: #EDEDED;
+
+    }
+</style>
+<!--全局-->
+
+
+</body>
+</html>
