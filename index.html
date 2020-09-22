@@ -4,35 +4,36 @@
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer"/>
     <title>Title</title>
-    <script src="module/hljs.js"></script>
-    <script src="module/vue.js"></script>
-    <script src="module/http.js"></script>
-    <script src="module/qs.js"></script>
-    <script src="module/router.js"></script>
-    <link rel="stylesheet" href="module/css/awesome.css">
-    <link rel="stylesheet" href="module/css/solar-light.css">
-
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/10.2.0/highlight.min.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/qs/6.9.4/qs.min.js"></script>
+    <script src="//cdn.bootcdn.net/ajax/libs/vue-router/3.4.3/vue-router.min.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/solarized-light.min.css">
 </head>
 <body>
-
 <!--博客配置文件-->
 <script>
     const blogConfig = {
-        proxyHost: 'http://cnblogs.zeer.beer',
+        proxyHost: 'http://cnblogs.zeer.beer', // 填入反代服务器地址
 
-        title: 'Zeer x Beer',
-        subtitle: '余自必, 犹必然',
+        title: '百变 x 酒精', // 网站标题
+        subtitle: '我是一个酒精过敏的帅哥', // 网站副标题
         menus: [
-            {icon: 'bell', name: 'Home', link: '//baidu.com'},
-            {icon: 'book', name: 'Docs', link: ''},
+            {icon: 'bell', name: 'Home', link: '//baidu.com'}, // 图标地址 http://www.fontawesome.com.cn/faicons/
+            {icon: 'book', name: 'Docs', link: ''},            // 目前不支持组件路由
         ],
 
-        copyrightTime: '2020',
-        copyright: 'ZeerBeer',
-        customFooter: `Source code <a href="https://github.com/ZeerBeer/cnblogs-rebuild">here</a>`,
+        copyrightTime: '2020', // 2020 - {{填入内容}}
+        copyright: 'ZeerBeer', // 网站底部版权
+        customFooter: `Source code <a href="https://github.com/ZeerBeer/cnblogs-rebuild">here</a>`, // 自定义底部说明
 
-        clientId: '4e1ae68e-f4af-43d5-bb94-ed7f00babcb4',
-        clientSecret: 'VNA775gWdBT-4hPytT_Sfp6rM4lAgJbhezYp5q0yN_4r8zPSJ5iFsRuMCNNVdnHUhay_nx5-8-jHEWUr',
+        /*
+        * API 申请网址 https://oauth.cnblogs.com/
+        */
+        clientId: '###$$$%%-@@$$-@@$$-@@$$-xxxxxxxxxxxx',
+        clientSecret: '###$$$%%-###$$$_%%###$$$%%###$$$%%##_#$$$%%###$$$_%%-0-xxxxxx',
         grantType: 'client_credentials',
     }
 </script>
@@ -41,11 +42,11 @@
 <template id="blog-header-tmp">
     <hearder id="blog-header">
         <div id="title">
-            <div :style="styleInitL1">{{title}}</div>
+            <div style="top: -1rem; opacity: 0">{{title}}</div>
         </div>
-        <div id="subtitle" :style="styleInitL2">{{subtitle}}</div>
-        <ul :style="styleInitL3">
-            <li v-for="menu in menus" :key="menu.name" @click="href(menu.link)">
+        <div id="subtitle" style="top: -1rem; opacity: 0">{{subtitle}}</div>
+        <ul style="top: -1rem; opacity: 0">
+            <li v-for="menu in menus" :key="menu.name" @click="window.location.href = menu.link">
                 <i class="fa fa-fw" :class="'fa-' + menu.icon"></i>
                 {{menu.name}}
             </li>
@@ -57,62 +58,43 @@
     const BlogHeader = {
         template: '#blog-header-tmp',
         data() {
-
             return {
                 title: blogConfig.title,
                 subtitle: blogConfig.subtitle,
                 menus: blogConfig.menus,
-
-                styleInitL1: {
-                    top: '-1rem',
-                    opacity: '0',
-                },
-                styleInitL2: {
-                    top: '-1rem',
-                    opacity: '0',
-                },
-                styleInitL3: {
-                    top: '-1rem',
-                    opacity: '0',
-                },
             }
         },
         mounted() {
-            this.level3Loding()
+            setTimeout(res => {
+                document.querySelectorAll('#blog-header #title div').forEach(e => {
+                    e.style.top = '0rem'
+                    e.style.opacity = '1'
+                })
+            }, 10)
+            setTimeout(res => {
+                document.querySelectorAll('#blog-header #subtitle').forEach(e => {
+                    e.style.top = '0rem'
+                    e.style.opacity = '1'
+                })
+            }, 500)
+            setTimeout(res => {
+                document.querySelectorAll('#blog-header ul').forEach(e => {
+                    e.style.top = '0rem'
+                    e.style.opacity = '1'
+                })
+            }, 1000)
         },
-        methods: {
-            level3Loding() {
-                setTimeout(res => {
-                    this.styleInitL1.top = '0rem'
-                    this.styleInitL1.opacity = '1'
-                }, 10)
-                setTimeout(res => {
-                    this.styleInitL2.top = '0rem'
-                    this.styleInitL2.opacity = '1'
-                }, 500)
-                setTimeout(res => {
-                    this.styleInitL3.top = '0rem'
-                    this.styleInitL3.opacity = '1'
-                }, 1000)
-            },
-            href(url) {
-                window.location.href = url
-            }
-        }
-
+        methods: {}
     }
 </script>
 
 <style>
     #blog-header {
-
         height: 16rem;
 
         display: flex;
         flex-direction: column;
         align-items: center;
-
-
     }
 
     #blog-header #title {
@@ -127,31 +109,25 @@
         font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
         font-weight: normal;
         color: #fff;
-
-
     }
 
     #blog-header #title div {
-
         position: relative;
-
         transition: all .5s ease-in-out;
     }
 
 
     #blog-header #subtitle {
-
-        position: relative;
-
         color: #999;
         font-size: 0.8125em;
+
         margin: 10px 0;
 
+        position: relative;
         transition: all .5s ease-in-out;
     }
 
     #blog-header ul {
-
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -159,14 +135,11 @@
         list-style: none;
 
         padding: 1rem 0 0;
-
         margin: 0;
 
         color: #555;
 
         position: relative;
-
-
         transition: all .5s ease-in-out;
     }
 
@@ -184,13 +157,18 @@
 <!--头部-->
 
 
-<!--文章-->
+<!-- 文章 -->
 <template id="blog-post-tmp">
     <div id="blog-post">
         <article v-for="item in listData">
-            <header><h2 :style="styleInitL1"> {{item.title}} </h2></header>
-            <div class="mate" :style="styleInitL2"><i class="fa fa-fw fa-calendar-o"></i> Posted on {{item.date}}</div>
-            <div v-html="moreFilterData(item)" :style="styleInitL2"></div>
+            <header>
+                <h2 class="title" style="top:-1rem; opacity: 0;"> {{item.title}} </h2>
+            </header>
+            <div class="mate" style="top:-1rem; opacity: 0;"><i class="fa fa-fw fa-calendar-o"></i> Posted on
+                {{item.date}}
+            </div>
+            <div class="post" v-html="moreFilterData(item)" style="top:-1rem; opacity: 0;"></div>
+            <div class="footer"></div>
         </article>
     </div>
 </template>
@@ -200,74 +178,59 @@
         template: '#blog-post-tmp',
         data() {
             return {
-                styleInitL1: {
-                    top: '-1rem',
-                    opacity: '0',
-                },
-                styleInitL2: {
-                    top: '-1rem',
-                    opacity: '0',
-                },
                 listData: []
-
             }
         },
         props: [
             "cnblogsToken",
         ],
-
         async created() {
-
-            // console.log(this.$route.params.num)
-
             if (!this.$route.params.num) {
                 this.$route.params.num = 1
             }
-            // console.log(this.cnblogsToken)
 
             this.updatePage(this.$route.params.num)
-
-        }, beforeMount() {
-
-        },
-        beforeUpdate() {
-            console.log(1)
-            //
-
-            this.f()
-            // this.level2Loading()
         },
         updated() {
 
-            console.log(2)
-            this.level2Loading()
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            })
+
+            document.querySelectorAll('article .title').forEach(e => {
+                e.style.top = '-1rem'
+                e.style.opacity = '0'
+            })
+            document.querySelectorAll('article .post').forEach(e => {
+                e.style.top = '-1rem'
+                e.style.opacity = '0'
+            })
+            document.querySelectorAll('article .mate').forEach(e => {
+                e.style.top = '-1rem'
+                e.style.opacity = '0'
+            })
+
+            setTimeout(res => {
+                document.querySelectorAll('article .title').forEach(e => {
+                    e.style.top = '0rem'
+                    e.style.opacity = '1'
+                })
+            }, 500)
+            setTimeout(res => {
+                document.querySelectorAll('article .post').forEach(e => {
+                    e.style.top = '0rem'
+                    e.style.opacity = '1'
+                })
+                document.querySelectorAll('article .mate').forEach(e => {
+                    e.style.top = '0rem'
+                    e.style.opacity = '1'
+                })
+            }, 1000)
         },
         methods: {
-            f() {
-                this.styleInitL1.top = '-1rem'
-                this.styleInitL1.opacity = '0'
-                this.styleInitL1.top = '-1rem'
-                this.styleInitL1.opacity = '0'
-            },
-            level2Loading() {
-
-
-                setTimeout(res => {
-
-                    this.styleInitL1.top = '0rem'
-                    this.styleInitL1.opacity = '1'
-                }, 10)
-                setTimeout(res => {
-                    this.styleInitL2.top = '0rem'
-                    this.styleInitL2.opacity = '1'
-                }, 500)
-            },
             moreFilterData(item) {
-                // console.log(500, item)
-
                 return item.data.slice(0, item.data.indexOf("<!--more-->") === -1 ?
                     item.data.length : item.data.indexOf("<!--more-->"))
-
             },
             async updatePage(pageNum) {
                 const list = await axios({
@@ -279,18 +242,9 @@
                     },
                 })
 
-                // console.log(list)
-
-                const listData = list.data
-
-
-                // console.log(listData)
-
                 const tasks = []
 
-                listData.forEach(e => {
-                    // console.log(e)
-
+                list.data.forEach(e => {
                     const promise = axios({
                         method: "GET",
                         url: blogConfig.proxyHost + `/api/blogposts/` + e.Id + `/body`,
@@ -306,45 +260,30 @@
                         res.id = e.Id
                         res.title = e.Title
                         res.date = e.PostDate.slice(0, e.PostDate.indexOf("T"))
-                        // console.log(res)
-                        this.listData.push(res)
-                        // console.log(1, this.listData)
+                        // 有好处 当页面请求到数据的话即可挂载
+                        // 有坏处 后续需要按照时间顺序进行文章展示 会造成数据错乱
+                        // 思路 SortedArray 后端限制了思路
+                        // this.listData.push(res)
                     })
-
-
                 })
 
                 await Promise.all(tasks).then(res => {
-                    // console.log(res)
                     this.listData = res.sort((o1, o2) => {
                         return o1.date - o2.date
                     })
-
-                    // console.log(this.listData)
-                })
-
-                document.querySelectorAll('pre code').forEach((block) => {
-
-                    hljs.highlightBlock(block);
                 })
             }
         },
         watch: {
             async $route(to, from) {
-
-
-                this.updatePage(to.params.num)
-                // document.documentElement.scrollTop = 0
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth"
                 });
+                return this.updatePage(to.params.num)
             }
         }
     }
-
-    // 最大最小控制内边距
-    // 一样负责外边距
 </script>
 
 <style>
@@ -369,7 +308,6 @@
 
         margin-top: .1rem;
 
-
         line-height: 2;
         font-size: 0.75em;
         color: #999;
@@ -381,7 +319,6 @@
         font-weight: 600;
         font-size: 1.65rem;
 
-
         margin: 0;
 
         border-bottom: rgba(0, 0, 0, 0.0) solid .1rem;
@@ -390,9 +327,21 @@
     }
 
     #blog-post header h2:hover {
-
         border-bottom: #555 solid .1rem;
         transition: all .5s ease-in-out;
+    }
+
+
+    #blog-post .footer {
+        background: #ccc;
+        height: .1rem;
+        width: 8%;
+
+        margin: 3rem;
+    }
+
+    article:last-of-type .footer {
+        display: none;
     }
 
     #blog-post h3 {
@@ -418,11 +367,9 @@
     #blog-post div {
         width: 100%;
 
-
         position: relative;
         transition: all .5s ease-in-out;
     }
-
 
     #blog-post pre code {
         padding: 1rem;
@@ -438,17 +385,14 @@
 <!--分页-->
 <template id="blog-paginate-tmp">
     <nav id="blog-paginate">
-        <span :style="styleInitL1">
-            <i class="fa fa-angle-left"></i>
-        </span>
-
-        <span v-for="pageNum in pageNums" :style="styleInitL1"
-              :class="curPageNum == pageNum?'current':''"
-              @click="$router.push({ path: '/page/' + pageNum })">{{pageNum}}</span>
-
-        <span :style="styleInitL1">
-            <i class="fa fa-angle-right"></i>
-        </span>
+            <span style="top: 1rem; opacity: 0">
+                <i class="fa fa-angle-left"></i>
+            </span>
+        <span v-for="pageNum in pageNums" style="top: 1rem; opacity: 0" :class="curPageNum == pageNum?'current':''"
+              @click="$router.push({ path: '/page/' + pageNum })"> {{pageNum}} </span>
+        <span style="top: 1rem; opacity: 0">
+                <i class="fa fa-angle-right"></i>
+            </span>
     </nav>
 </template>
 
@@ -462,24 +406,17 @@
             return {
                 pageNums: 0,
                 curPageNum: 0,
-                styleInitL1: {
-                    top: '1rem',
-                    opacity: '0',
-                },
             }
         },
 
         async created() {
-
-            // console.log(this.$route.params.num)
-
             this.curPageNum = this.$route.params.num
 
             if (!this.$route.params.num) {
                 this.$route.params.num = 1
             }
 
-            axios({
+            await axios({
                 method: "GET",
                 url: blogConfig.proxyHost + `/api/blogs/zeerbeer`,
                 data: {},
@@ -487,27 +424,22 @@
                     'Authorization': 'Bearer ' + this.cnblogsToken
                 },
             }).then(res => {
-
-                // console.log(res)
-
-                this.pageSize = res.data.pageSize
-                this.postCount = res.data.postCount
-
                 this.pageNums = Math.ceil(res.data.postCount / res.data.pageSize)
-
             })
-
         },
         async updated() {
-
-            // console.log(1)
+            document.querySelectorAll('#blog-paginate span').forEach(e => {
+                e.style.top = '1rem'
+                e.style.opacity = '0'
+            })
 
             setTimeout(res => {
-                this.styleInitL1.top = '0rem'
-                this.styleInitL1.opacity = '1'
-            }, 10)
+                document.querySelectorAll('#blog-paginate span').forEach(e => {
+                    e.style.top = '0rem'
+                    e.style.opacity = '1'
+                })
+            }, 50)
         },
-
         watch: {
             async $route(to, from) {
                 if (to.name === 'page')
@@ -527,26 +459,19 @@
         min-width: 50rem;
 
         border-top: #eee solid .1rem;
-
-
     }
 
     #blog-paginate span {
-
         border-top: 1px solid rgba(0, 0, 0, 0.0);
         transition: all .5s ease-in-out;
 
         padding: .5rem;
 
         position: relative;
-
-
     }
-
 
     #blog-paginate span:hover {
         border-top: 1px solid #555;
-
     }
 
     #blog-paginate .current {
@@ -558,22 +483,13 @@
 
 <!--底部-->
 <template id="blog-footer-tmp">
-    <div id="blog-footer" :style="styleInitL1">
-
-
+    <div id="blog-footer" style="top: 1rem;opacity: 0">
         <div class="copyright">
-
-            © 2020 –<span itemprop="copyrightYear">{{copyrightTime}}</span><span class="with-love"><i
-                class="fa fa-heart"></i></span>
+            © 2020 –<span itemprop="copyrightYear">{{copyrightTime}}</span>
+            <span class="with-love"><i class="fa fa-heart"></i></span>
             <span class="author" itemprop="copyrightHolder">{{copyright}}</span>
-
         </div>
-
-        <div class="footer-custom" v-html="blogConfig.customFooter">
-
-        </div>
-
-
+        <div class="footer-custom" v-html="blogConfig.customFooter"></div>
     </div>
 </template>
 
@@ -585,23 +501,17 @@
             return {
                 copyrightTime: blogConfig.copyrightTime,
                 copyright: blogConfig.copyright,
-                styleInitL1: {
-                    top: '1rem',
-                    opacity: '0',
-                },
             }
         },
 
         mounted() {
-
-
             setTimeout(res => {
-                this.styleInitL1.top = '0rem'
-                this.styleInitL1.opacity = '1'
+                document.querySelectorAll('#blog-footer').forEach(e => {
+                    e.style.top = '0rem'
+                    e.style.opacity = '1'
+                })
             }, 1000)
         }
-
-
     }
 </script>
 
@@ -615,9 +525,8 @@
         color: #999;
         font-size: 0.875em;
 
-        transition: all .5s ease-in-out;
-
         position: relative;
+        transition: all .5s ease-in-out;
     }
 
     #blog-footer .copyright {
@@ -644,7 +553,6 @@
             transform: scale(1.1);
         }
     }
-
 </style>
 <!--底部-->
 
@@ -652,18 +560,12 @@
 <!--全局-->
 <div id="app">
     <blog-header></blog-header>
-
-    <router-view v-if="cnblogsToken != ''" :cnblogs-token="cnblogsToken"></router-view>
-    <!--    <blog-post v-for="item in listData" :item="item"></blog-post>-->
-
+    <router-view v-if="cnblogsToken != ''" :cnblogs-token="cnblogsToken"></router-view><!--异步等待, 下面同-->
     <blog-paginate v-if="cnblogsToken != ''" :cnblogs-token="cnblogsToken"></blog-paginate>
-
     <blog-footer></blog-footer>
 </div>
 
 <script>
-
-
     new Vue({
         router: new VueRouter({
             routes: [
@@ -674,10 +576,6 @@
         data: {
             cnblogsToken: '',
             listData: [],
-            pageSize: 0,
-            postCount: 0,
-            pageNums: 5,
-            curPageNum: 1,
         },
         components: {
             BlogHeader: BlogHeader,
@@ -686,13 +584,9 @@
             BlogFooter: BlogFooter,
         },
         async created() {
-
-            // console.log('created')
-
+            // 省去一次获取 Token 的时间
             if ((!localStorage.cnblogsToken || !localStorage.cnblogsTokenExpires)
                 || Date.parse(new Date()) / 1000 > localStorage.cnblogsTokenExpires) {
-
-
                 const res = await axios({
                     method: "POST",
                     url: blogConfig.proxyHost + `/token`,
@@ -705,61 +599,18 @@
                         'content-type': "application/x-www-form-urlencoded;"
                     }
                 })
-
-                // let curTime = Date.parse(new Date()) / 1000 - localStorage.cnblogsTokenExpires
-                // console.log(Date.parse(new Date()) / 1000)
-                // console.log(localStorage.cnblogsTokenExpires)
-                // console.log(curTime)
-                // console.log(res)
-                // console.log(cnblogsToken)
-
                 localStorage.cnblogsTokenExpires = Date.parse(new Date()) / 1000 + res.data.expires_in
                 localStorage.cnblogsToken = res.data.access_token
-                // console.log(Date.parse(new Date()) / 1000)
-                // console.log(localStorage.cnblogsTokenExpires)
-                // console.log(localStorage.cnblogsToken)
-
             }
-
             this.cnblogsToken = localStorage.cnblogsToken
-
-            //
-            // axios({
-            //     method: "GET",
-            //     url: blogConfig.proxyHost + `/api/blogs/zeerbeer`,
-            //     data: {},
-            //     headers: {
-            //         'Authorization': 'Bearer ' + localStorage.cnblogsToken
-            //     },
-            // }).then(res => {
-            //
-            //     // console.log(res)
-            //
-            //     this.pageSize = res.data.pageSize
-            //     this.postCount = res.data.postCount
-            //
-            //     this.pageNums = Math.ceil(res.data.postCount / res.data.pageSize)
-            //
-            //     // console.log(this.pageNums)
-            // })
-
-        },
-        async mounted() {
-
-
-            console.log('mounted')
-
-
         },
     }).$mount('#app')
-
 </script>
 
 <style>
     body {
         margin: 0;
         padding: 0;
-
     }
 
     #app {
@@ -768,60 +619,44 @@
         align-items: center;
 
         color: #2c3e50;
-
     }
 
     #app h1, h2, h3, h4, h5 {
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
         font-weight: 600;
         line-height: 1.25;
-
     }
-
 
     #app p {
         display: flex;
-        margin-block-start: 0em;
-        margin-block-end: 0em;
-        margin-inline-start: 0em;
-        margin-inline-end: 0em;
+
+        margin-block-start: 0;
+        margin-block-end: 0;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
 
         font-size: 1rem;
-
         line-height: 1.7;
     }
 
-    ::-webkit-scrollbar { /*滚动条整体样式*/
-
-        width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
-
+    /*参考写法 不明觉厉*/
+    ::-webkit-scrollbar {
+        width: 10px;
         height: 5px;
-
     }
 
-    ::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
-
+    ::-webkit-scrollbar-thumb {
         border-radius: 10px;
-
-        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
         background: #535353;
-
     }
 
-    ::-webkit-scrollbar-track { /*滚动条里面轨道*/
-
-        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
-
         background: #EDEDED;
-
     }
 </style>
 <!--全局-->
-
-
 </body>
 </html>
