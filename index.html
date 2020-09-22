@@ -2,26 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="no-referrer"/>
     <title>Title</title>
     <script src="module/hljs.js"></script>
     <script src="module/vue.js"></script>
     <script src="module/http.js"></script>
     <script src="module/qs.js"></script>
+    <script src="module/router.js"></script>
     <link rel="stylesheet" href="module/css/awesome.css">
-    <link rel="stylesheet" href="module/css/solar-dark.css">
+    <link rel="stylesheet" href="module/css/solar-light.css">
 
 </head>
 <body>
 
+<!--博客配置文件-->
+<script>
+    const blogConfig = {
+        proxyHost: 'http://cnblogs.zeer.beer',
+
+        title: 'Zeer x Beer',
+        subtitle: '余自必, 犹必然',
+        menus: [
+            {icon: 'bell', name: 'Home', link: '//baidu.com'},
+            {icon: 'book', name: 'Docs', link: ''},
+        ],
+
+        copyrightTime: '2020',
+        copyright: 'ZeerBeer',
+        customFooter: `Source code <a href="https://github.com/ZeerBeer/cnblogs-rebuild">here</a>`,
+
+        clientId: '4e1ae68e-f4af-43d5-bb94-ed7f00babcb4',
+        clientSecret: 'VNA775gWdBT-4hPytT_Sfp6rM4lAgJbhezYp5q0yN_4r8zPSJ5iFsRuMCNNVdnHUhay_nx5-8-jHEWUr',
+        grantType: 'client_credentials',
+    }
+</script>
 
 <!--头部-->
 <template id="blog-header-tmp">
     <hearder id="blog-header">
-        <div id="title">{{title}}</div>
-        <div id="subtitle">{{subtitle}}</div>
-        <ul>
-            <li v-for="menu in menus" :key="menu.name">
+        <div id="title">
+            <div :style="styleInitL1">{{title}}</div>
+        </div>
+        <div id="subtitle" :style="styleInitL2">{{subtitle}}</div>
+        <ul :style="styleInitL3">
+            <li v-for="menu in menus" :key="menu.name" @click="href(menu.link)">
                 <i class="fa fa-fw" :class="'fa-' + menu.icon"></i>
                 {{menu.name}}
             </li>
@@ -33,15 +57,49 @@
     const BlogHeader = {
         template: '#blog-header-tmp',
         data() {
+
             return {
-                title: 'Zeer x Beer',
-                subtitle: '余自必, 犹必然',
-                menus: [
-                    {icon: 'bell', name: 'Home'},
-                    {icon: 'book', name: 'Docs'},
-                ]
+                title: blogConfig.title,
+                subtitle: blogConfig.subtitle,
+                menus: blogConfig.menus,
+
+                styleInitL1: {
+                    top: '-1rem',
+                    opacity: '0',
+                },
+                styleInitL2: {
+                    top: '-1rem',
+                    opacity: '0',
+                },
+                styleInitL3: {
+                    top: '-1rem',
+                    opacity: '0',
+                },
             }
         },
+        mounted() {
+            this.level3Loding()
+        },
+        methods: {
+            level3Loding() {
+                setTimeout(res => {
+                    this.styleInitL1.top = '0rem'
+                    this.styleInitL1.opacity = '1'
+                }, 10)
+                setTimeout(res => {
+                    this.styleInitL2.top = '0rem'
+                    this.styleInitL2.opacity = '1'
+                }, 500)
+                setTimeout(res => {
+                    this.styleInitL3.top = '0rem'
+                    this.styleInitL3.opacity = '1'
+                }, 1000)
+            },
+            href(url) {
+                window.location.href = url
+            }
+        }
+
     }
 </script>
 
@@ -53,6 +111,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+
     }
 
     #blog-header #title {
@@ -67,13 +127,27 @@
         font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
         font-weight: normal;
         color: #fff;
+
+
+    }
+
+    #blog-header #title div {
+
+        position: relative;
+
+        transition: all .5s ease-in-out;
     }
 
 
     #blog-header #subtitle {
+
+        position: relative;
+
         color: #999;
         font-size: 0.8125em;
         margin: 10px 0;
+
+        transition: all .5s ease-in-out;
     }
 
     #blog-header ul {
@@ -89,6 +163,11 @@
         margin: 0;
 
         color: #555;
+
+        position: relative;
+
+
+        transition: all .5s ease-in-out;
     }
 
     #blog-header ul li {
@@ -107,32 +186,160 @@
 
 <!--文章-->
 <template id="blog-post-tmp">
-    <article id="blog-post">
-        <header><h2> {{item.title}} </h2></header>
-        <div v-html="moreFilterData"></div>
-    </article>
+    <div id="blog-post">
+        <article v-for="item in listData">
+            <header><h2 :style="styleInitL1"> {{item.title}} </h2></header>
+            <div class="mate" :style="styleInitL2"><i class="fa fa-fw fa-calendar-o"></i> Posted on {{item.date}}</div>
+            <div v-html="moreFilterData(item)" :style="styleInitL2"></div>
+        </article>
+    </div>
 </template>
 
 <script>
     const BlogPost = {
         template: '#blog-post-tmp',
         data() {
-            return {}
+            return {
+                styleInitL1: {
+                    top: '-1rem',
+                    opacity: '0',
+                },
+                styleInitL2: {
+                    top: '-1rem',
+                    opacity: '0',
+                },
+                listData: []
+
+            }
         },
         props: [
-            "item"
+            "cnblogsToken",
         ],
-        computed: {
-            moreFilterData() {
 
-                return this.item.data.slice(0, this.item.data.indexOf("<!--more-->") === -1 ?
-                    this.item.data.length : this.item.data.indexOf("<!--more-->"))
+        async created() {
+
+            // console.log(this.$route.params.num)
+
+            if (!this.$route.params.num) {
+                this.$route.params.num = 1
+            }
+            // console.log(this.cnblogsToken)
+
+            this.updatePage(this.$route.params.num)
+
+        }, beforeMount() {
+
+        },
+        beforeUpdate() {
+            console.log(1)
+            //
+
+            this.f()
+            // this.level2Loading()
+        },
+        updated() {
+
+            console.log(2)
+            this.level2Loading()
+        },
+        methods: {
+            f() {
+                this.styleInitL1.top = '-1rem'
+                this.styleInitL1.opacity = '0'
+                this.styleInitL1.top = '-1rem'
+                this.styleInitL1.opacity = '0'
+            },
+            level2Loading() {
+
+
+                setTimeout(res => {
+
+                    this.styleInitL1.top = '0rem'
+                    this.styleInitL1.opacity = '1'
+                }, 10)
+                setTimeout(res => {
+                    this.styleInitL2.top = '0rem'
+                    this.styleInitL2.opacity = '1'
+                }, 500)
+            },
+            moreFilterData(item) {
+                // console.log(500, item)
+
+                return item.data.slice(0, item.data.indexOf("<!--more-->") === -1 ?
+                    item.data.length : item.data.indexOf("<!--more-->"))
 
             },
+            async updatePage(pageNum) {
+                const list = await axios({
+                    method: "GET",
+                    url: blogConfig.proxyHost + `/api/blogs/zeerbeer/posts?pageIndex=` + pageNum,
+                    data: {},
+                    headers: {
+                        'Authorization': 'Bearer ' + this.cnblogsToken
+                    },
+                })
+
+                // console.log(list)
+
+                const listData = list.data
+
+
+                // console.log(listData)
+
+                const tasks = []
+
+                listData.forEach(e => {
+                    // console.log(e)
+
+                    const promise = axios({
+                        method: "GET",
+                        url: blogConfig.proxyHost + `/api/blogposts/` + e.Id + `/body`,
+                        data: {},
+                        headers: {
+                            'Authorization': 'Bearer ' + this.cnblogsToken
+                        },
+                    })
+
+                    tasks.push(promise)
+
+                    promise.then(res => {
+                        res.id = e.Id
+                        res.title = e.Title
+                        res.date = e.PostDate.slice(0, e.PostDate.indexOf("T"))
+                        // console.log(res)
+                        this.listData.push(res)
+                        // console.log(1, this.listData)
+                    })
+
+
+                })
+
+                await Promise.all(tasks).then(res => {
+                    // console.log(res)
+                    this.listData = res.sort((o1, o2) => {
+                        return o1.date - o2.date
+                    })
+
+                    // console.log(this.listData)
+                })
+
+                document.querySelectorAll('pre code').forEach((block) => {
+
+                    hljs.highlightBlock(block);
+                })
+            }
         },
-        mounted() {
+        watch: {
+            async $route(to, from) {
 
 
+                this.updatePage(to.params.num)
+                // document.documentElement.scrollTop = 0
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
         }
     }
 
@@ -141,7 +348,7 @@
 </script>
 
 <style>
-    #blog-post {
+    #blog-post article {
         max-width: 50rem;
         width: 100%;
         min-width: 50rem;
@@ -154,13 +361,39 @@
         margin-left: 4rem;
     }
 
+    #blog-post .mate {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: .1rem;
+
+
+        line-height: 2;
+        font-size: 0.75em;
+        color: #999;
+    }
+
     #blog-post header h2 {
         color: #2c3e50;
         line-height: 1.25;
         font-weight: 600;
         font-size: 1.65rem;
+
+
+        margin: 0;
+
+        border-bottom: rgba(0, 0, 0, 0.0) solid .1rem;
+        position: relative;
+        transition: all .5s ease-in-out;
     }
 
+    #blog-post header h2:hover {
+
+        border-bottom: #555 solid .1rem;
+        transition: all .5s ease-in-out;
+    }
 
     #blog-post h3 {
         font-size: 1.35rem;
@@ -184,6 +417,10 @@
 
     #blog-post div {
         width: 100%;
+
+
+        position: relative;
+        transition: all .5s ease-in-out;
     }
 
 
@@ -197,109 +434,323 @@
 </style>
 <!--文章-->
 
+
+<!--分页-->
+<template id="blog-paginate-tmp">
+    <nav id="blog-paginate">
+        <span :style="styleInitL1">
+            <i class="fa fa-angle-left"></i>
+        </span>
+
+        <span v-for="pageNum in pageNums" :style="styleInitL1"
+              :class="curPageNum == pageNum?'current':''"
+              @click="$router.push({ path: '/page/' + pageNum })">{{pageNum}}</span>
+
+        <span :style="styleInitL1">
+            <i class="fa fa-angle-right"></i>
+        </span>
+    </nav>
+</template>
+
+<script>
+    const BlogPaginate = {
+        template: '#blog-paginate-tmp',
+        props: [
+            "cnblogsToken"
+        ],
+        data() {
+            return {
+                pageNums: 0,
+                curPageNum: 0,
+                styleInitL1: {
+                    top: '1rem',
+                    opacity: '0',
+                },
+            }
+        },
+
+        async created() {
+
+            // console.log(this.$route.params.num)
+
+            this.curPageNum = this.$route.params.num
+
+            if (!this.$route.params.num) {
+                this.$route.params.num = 1
+            }
+
+            axios({
+                method: "GET",
+                url: blogConfig.proxyHost + `/api/blogs/zeerbeer`,
+                data: {},
+                headers: {
+                    'Authorization': 'Bearer ' + this.cnblogsToken
+                },
+            }).then(res => {
+
+                // console.log(res)
+
+                this.pageSize = res.data.pageSize
+                this.postCount = res.data.postCount
+
+                this.pageNums = Math.ceil(res.data.postCount / res.data.pageSize)
+
+            })
+
+        },
+        async updated() {
+
+            // console.log(1)
+
+            setTimeout(res => {
+                this.styleInitL1.top = '0rem'
+                this.styleInitL1.opacity = '1'
+            }, 10)
+        },
+
+        watch: {
+            async $route(to, from) {
+                if (to.name === 'page')
+                    this.curPageNum = this.$route.params.num
+            }
+        }
+    }
+</script>
+
+<style>
+    #blog-paginate {
+        display: flex;
+        justify-content: center;
+
+        max-width: 50rem;
+        width: 100%;
+        min-width: 50rem;
+
+        border-top: #eee solid .1rem;
+
+
+    }
+
+    #blog-paginate span {
+
+        border-top: 1px solid rgba(0, 0, 0, 0.0);
+        transition: all .5s ease-in-out;
+
+        padding: .5rem;
+
+        position: relative;
+
+
+    }
+
+
+    #blog-paginate span:hover {
+        border-top: 1px solid #555;
+
+    }
+
+    #blog-paginate .current {
+        background: #ccc;
+    }
+</style>
+<!--分页-->
+
+
+<!--底部-->
+<template id="blog-footer-tmp">
+    <div id="blog-footer" :style="styleInitL1">
+
+
+        <div class="copyright">
+
+            © 2020 –<span itemprop="copyrightYear">{{copyrightTime}}</span><span class="with-love"><i
+                class="fa fa-heart"></i></span>
+            <span class="author" itemprop="copyrightHolder">{{copyright}}</span>
+
+        </div>
+
+        <div class="footer-custom" v-html="blogConfig.customFooter">
+
+        </div>
+
+
+    </div>
+</template>
+
+<script>
+    const BlogFooter = {
+        template: '#blog-footer-tmp',
+
+        data() {
+            return {
+                copyrightTime: blogConfig.copyrightTime,
+                copyright: blogConfig.copyright,
+                styleInitL1: {
+                    top: '1rem',
+                    opacity: '0',
+                },
+            }
+        },
+
+        mounted() {
+
+
+            setTimeout(res => {
+                this.styleInitL1.top = '0rem'
+                this.styleInitL1.opacity = '1'
+            }, 1000)
+        }
+
+
+    }
+</script>
+
+<style>
+    #blog-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 3rem;
+
+        color: #999;
+        font-size: 0.875em;
+
+        transition: all .5s ease-in-out;
+
+        position: relative;
+    }
+
+    #blog-footer .copyright {
+        margin: .5rem 0;
+    }
+
+    .with-love {
+        display: inline-block;
+        animation: heartbeat 1.33s ease-in-out infinite;
+        margin: 0 .5rem;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% {
+            transform: scale(1);
+        }
+        10%, 30% {
+            transform: scale(0.9);
+        }
+        20%, 40%, 60%, 80% {
+            transform: scale(1.1);
+        }
+        50%, 70% {
+            transform: scale(1.1);
+        }
+    }
+
+</style>
+<!--底部-->
+
+
 <!--全局-->
 <div id="app">
     <blog-header></blog-header>
 
-    <blog-post v-for="item in listData" :item="item"></blog-post>
+    <router-view v-if="cnblogsToken != ''" :cnblogs-token="cnblogsToken"></router-view>
+    <!--    <blog-post v-for="item in listData" :item="item"></blog-post>-->
+
+    <blog-paginate v-if="cnblogsToken != ''" :cnblogs-token="cnblogsToken"></blog-paginate>
+
+    <blog-footer></blog-footer>
 </div>
 
 <script>
 
+
     new Vue({
+        router: new VueRouter({
+            routes: [
+                {path: '/page/:num', name: 'page', component: BlogPost},
+                {path: '/', component: BlogPost}
+            ]
+        }),
         data: {
-            message: 'Hello Vue!',
-            listData: []
+            cnblogsToken: '',
+            listData: [],
+            pageSize: 0,
+            postCount: 0,
+            pageNums: 5,
+            curPageNum: 1,
         },
         components: {
             BlogHeader: BlogHeader,
             BlogPost: BlogPost,
+            BlogPaginate: BlogPaginate,
+            BlogFooter: BlogFooter,
+        },
+        async created() {
+
+            // console.log('created')
+
+            if ((!localStorage.cnblogsToken || !localStorage.cnblogsTokenExpires)
+                || Date.parse(new Date()) / 1000 > localStorage.cnblogsTokenExpires) {
+
+
+                const res = await axios({
+                    method: "POST",
+                    url: blogConfig.proxyHost + `/token`,
+                    data: Qs.stringify({
+                        client_id: blogConfig.clientId,
+                        client_secret: blogConfig.clientSecret,
+                        grant_type: blogConfig.grantType,
+                    }),
+                    headers: {
+                        'content-type': "application/x-www-form-urlencoded;"
+                    }
+                })
+
+                // let curTime = Date.parse(new Date()) / 1000 - localStorage.cnblogsTokenExpires
+                // console.log(Date.parse(new Date()) / 1000)
+                // console.log(localStorage.cnblogsTokenExpires)
+                // console.log(curTime)
+                // console.log(res)
+                // console.log(cnblogsToken)
+
+                localStorage.cnblogsTokenExpires = Date.parse(new Date()) / 1000 + res.data.expires_in
+                localStorage.cnblogsToken = res.data.access_token
+                // console.log(Date.parse(new Date()) / 1000)
+                // console.log(localStorage.cnblogsTokenExpires)
+                // console.log(localStorage.cnblogsToken)
+
+            }
+
+            this.cnblogsToken = localStorage.cnblogsToken
+
+            //
+            // axios({
+            //     method: "GET",
+            //     url: blogConfig.proxyHost + `/api/blogs/zeerbeer`,
+            //     data: {},
+            //     headers: {
+            //         'Authorization': 'Bearer ' + localStorage.cnblogsToken
+            //     },
+            // }).then(res => {
+            //
+            //     // console.log(res)
+            //
+            //     this.pageSize = res.data.pageSize
+            //     this.postCount = res.data.postCount
+            //
+            //     this.pageNums = Math.ceil(res.data.postCount / res.data.pageSize)
+            //
+            //     // console.log(this.pageNums)
+            // })
+
         },
         async mounted() {
 
-            const res = await axios({
-                method: "POST",
-                url: `http://cnblogs.zeer.beer/token`,
-                data: Qs.stringify({
-                    client_id: '4e1ae68e-f4af-43d5-bb94-ed7f00babcb4',
-                    client_secret: 'VNA775gWdBT-4hPytT_Sfp6rM4lAgJbhezYp5q0yN_4r8zPSJ5iFsRuMCNNVdnHUhay_nx5-8-jHEWUr',
-                    grant_type: 'client_credentials',
-                }),
-                headers: {
-                    'content-type': "application/x-www-form-urlencoded;"
-                }
-            })
 
-            console.log(res)
+            console.log('mounted')
 
-            const cnblogsToken = res.data.access_token
-
-            console.log(cnblogsToken)
-
-            localStorage.cnblogsToken = cnblogsToken
-
-            console.log(localStorage.cnblogsToken)
-
-            const list = await axios({
-                method: "GET",
-                url: `http://cnblogs.zeer.beer/api/blogs/zeerbeer/posts?pageIndex=1`,
-                data: {},
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.cnblogsToken
-                },
-            })
-
-            console.log(list)
-
-            const listData = list.data
-
-
-            console.log(listData)
-
-            const tasks = []
-
-            listData.forEach(e => {
-                console.log(e)
-
-                const promise = axios({
-                    method: "GET",
-                    url: `http://cnblogs.zeer.beer/api/blogposts/` + e.Id + `/body`,
-                    data: {},
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.cnblogsToken
-                    },
-                })
-
-                tasks.push(promise)
-
-                promise.then(res => {
-                    res.id = e.Id
-                    res.title = e.Title
-                    res.date = e.PostDate
-                    console.log(res)
-
-                })
-
-
-            })
-
-            await Promise.all(tasks).then(res => {
-                console.log(res)
-                this.listData = res.sort((o1, o2) => {
-                    return o1.date - o2.date
-                })
-
-            })
-
-            document.querySelectorAll('pre code').forEach((block) => {
-                console.log(1)
-                hljs.highlightBlock(block);
-            })
 
         },
-        updated(){
-
-        }
     }).$mount('#app')
 
 </script>
@@ -317,6 +768,7 @@
         align-items: center;
 
         color: #2c3e50;
+
     }
 
     #app h1, h2, h3, h4, h5 {
@@ -332,8 +784,8 @@
         display: flex;
         margin-block-start: 0em;
         margin-block-end: 0em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
+        margin-inline-start: 0em;
+        margin-inline-end: 0em;
 
         font-size: 1rem;
 
