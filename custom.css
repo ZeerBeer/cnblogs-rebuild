@@ -1,0 +1,7 @@
+#top_nav, #ad_t2, #cnblogs_c1, #cnblogs_c2, #under_post_news, #under_post_kb {
+    display: none;
+}
+
+#under_post_kb, #blog_post_info {
+    display: none;
+}

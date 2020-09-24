@@ -1,0 +1,351 @@
+<script async>
+    /**
+     * 屏蔽类似 CSDN 页面首部
+    */
+    document.querySelectorAll('#top_nav').forEach(e => {
+        e.style.display = 'none'
+    })
+
+    document.querySelectorAll('#home #header #navigator #navList').forEach(e => {
+        e.innerHTML = ''
+    })
+
+    document.querySelectorAll('#lnkBlogLogo').forEach(e => {
+        e.innerHTML = ''
+    })
+    document.querySelectorAll('#lnkBlogLogo').forEach(e => {
+        e.innerHTML = ''
+    })
+
+    document.querySelectorAll('#navigator .blogStats').forEach(e => {
+        e.innerHTML = ''
+    })
+    document.querySelectorAll('#mainContent .forFlow .day').forEach(e => {
+        e.innerHTML += `<div class="postSeparator"></div>`
+    })
+
+    document.querySelectorAll('#mainContent .forFlow .day .postCon .c_b_p_desc').forEach(e => {
+        if (e.innerHTML.indexOf('<img') != -1)
+            e.innerHTML = e.innerHTML.slice(e.innerHTML.indexOf('<img'), e.innerHTML.length)
+    })
+
+    document.querySelectorAll('#mainContent .forFlow .day .postDesc').forEach(e => {
+        e.innerHTML = `<i class="fa fa-user"></i>` + e.innerHTML.slice(26, e.innerHTML.length)
+    })
+    document.querySelectorAll('#mainContent .forFlow .day .postDesc .post-view-count').forEach(e => {
+        e.innerHTML = `<i class="fa fa-eye"></i>` + e.innerHTML.slice(2, e.innerHTML.length)
+    })
+    document.querySelectorAll('#mainContent .forFlow .day .postDesc .post-comment-count').forEach(e => {
+        e.innerHTML = `<i class="fa fa-comments"></i>` + e.innerHTML.slice(2, e.innerHTML.length)
+    })
+    document.querySelectorAll('#mainContent .forFlow .day .postDesc .post-digg-count').forEach(e => {
+        e.innerHTML = `<i class="fa fa-star"></i>` + e.innerHTML.slice(2, e.innerHTML.length)
+    })
+    document.querySelectorAll('#mainContent .forFlow .day .postDesc a').forEach(e => {
+        e.innerHTML = `<i class="fa fa-edit"></i>` + e.innerHTML
+    })
+
+    document.querySelectorAll('#main #mainContent #homepage_top_pager').forEach(e => {
+        e.innerHTML = ``
+    })
+
+    document.querySelectorAll('#main #mainContent .topicListFooter #nav_next_page a').forEach(e => {
+        e.innerHTML = `<i class="fa fa-angle-right"></i>`
+    })
+
+    document.querySelectorAll('#main #mainContent .forFlow #comment_form #comment_nav').forEach(e => {
+        e.innerHTML = ``
+    })
+
+    document.querySelectorAll('#main #mainContent #homepage_bottom_pager .pager a').forEach(e => {
+        if (e.innerHTML === '上一页') {
+            e.innerHTML = `<i class="fa fa-angle-left"></i>`
+        }
+        if (e.innerHTML === '下一页') {
+            e.innerHTML = `<i class="fa fa-angle-right"></i>`
+        }
+    })
+
+    // document.querySelector('#main #mainContent #homepage_bottom_pager .pager').childNodes.forEach(e => {
+    //     e.parentNode.removeChild(e)
+
+    //     if (e.nodeType === 3 && e.data.trim() != '') {
+    //         console.log(e.parentNode)
+    //         e.parentNode.insertBefore(document.createElement('a'), e)
+    //         e.parentNode.removeChild(e)
+
+    //         // suc(e.parentNode, `<a>` + e.data.trim() + `</a>`)
+
+    //     }
+
+    // })
+
+    if (document.querySelector('#main #mainContent #homepage_bottom_pager .pager')) {
+        let curIndex = 0
+        let curPage = 0
+        let element, nextElement
+        for (let index = 0; index < document.querySelector('#main #mainContent #homepage_bottom_pager .pager').childNodes.length; index++) {
+            const e = document.querySelector('#main #mainContent #homepage_bottom_pager .pager').childNodes[index];
+            // console.log(e)
+            if (e.nodeType === 3 && e.data.trim() != '') {
+                // console.log(e.parentNode)
+                curIndex = index
+                curPage = e.data.trim()
+                element = e
+            }
+        }
+        nextElement = document.querySelector('#main #mainContent #homepage_bottom_pager .pager').childNodes[curIndex + 1]
+        // console.log(nextElement)
+        // console.log(element)
+        document.querySelector('#main #mainContent #homepage_bottom_pager .pager').removeChild(element)
+        const cuePageElement = document.createElement('a')
+        cuePageElement.innerHTML = curPage
+        cuePageElement.style.background = '#eee'
+        document.querySelector('#main #mainContent #homepage_bottom_pager .pager').insertBefore(cuePageElement, nextElement)
+
+    }
+</script>
+
+
+<script>
+    /**
+     * Adb 目前的方案来看 CSS 最优
+    */
+    // if (document.querySelector('#ad_t2'))
+        // document.querySelector('#ad_t2').innerHTML = ''
+</script>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0/axios.min.js"></script>
+<script>
+    /**
+     * 加载配置到页面
+    */
+    new Promise((suc, err) => {
+        document.querySelectorAll('#home #header #blogTitle h1 a').forEach(e => {
+            setTimeout(() => {
+                e.style.opacity = '1'
+                e.style.top = '0'
+                suc(e.innerHTML)
+            }, 1)
+        })
+    }).then((res) => {
+        document.querySelectorAll('#footer').forEach(e => {
+            e.innerHTML = `<div style="display: flex;flex-direction: row;">© 2010 – 2020 <i class="fa fa-heart"></i> ` + res + ` <div>`
+            e.innerHTML += themeConfig.customFooter
+            setTimeout(() => {
+                e.style.opacity = '1'
+                e.style.top = '0'
+            }, 1000)
+        })
+    })
+
+    document.querySelectorAll('#home #header #blogTitle h1 a').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1)
+    })
+
+
+    document.querySelectorAll(' #main #mainContent .forFlow #comment_form').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1500)
+    })
+
+
+    document.querySelectorAll('#home #header #blogTitle h1').forEach(e => {
+        setTimeout(() => {
+            e.style.background = '#222'
+        }, 1)
+    })
+
+
+    /**
+    * 连续的两次伪类选择器没法使用
+    */
+    if (document.querySelector('#main #mainContent .forFlow .day .postSeparator'))
+        document.querySelectorAll('#main #mainContent .forFlow .day .postSeparator')[
+            document.querySelectorAll('#main #mainContent .forFlow .day .postSeparator').length - 1
+        ].style.display = 'none'
+
+    document.querySelectorAll('#home #header #blogTitle h2').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 250)
+    })
+
+    document.querySelectorAll('#main #mainContent #homepage_bottom_pager .pager').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1000)
+    })
+
+    document.querySelectorAll('#main #mainContent .topicListFooter #nav_next_page a').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1000)
+    })
+
+    new Promise((resolve, reject) => {
+        document.querySelectorAll('#home #header #navigator #navList').forEach(e => {
+            setTimeout(() => {
+                themeConfig.menu.forEach(e0 => {
+                    e.innerHTML += `
+                <li>
+                    <i class="fa fa-fw fa-` + e0.icon + `" ></i>
+                    `+ e0.name + `
+                </li>
+                    `
+                })
+                resolve(e)
+            }, 1)
+        })
+    }).then(res => {
+        setTimeout(() => {
+            Array.from(res.children).forEach(e => {
+                e.style.opacity = '1'
+                e.style.top = '0'
+            })
+        }, 500)
+    })
+
+    new Promise((resolve, reject) => {
+        const postArr = []
+        document.querySelectorAll('#main #mainContent .forFlow .dayTitle').forEach(e => {
+            e.firstElementChild.innerHTML = `<i class="fa fa-calendar-o"></i>&nbsp;Posted on ` + e.firstElementChild.innerHTML
+            // e.nextElementSibling.innerHTML += e.innerHTML // 博客园的坑 同时间发表只显示一次
+            e.parentNode.querySelectorAll('.postTitle').forEach(e0 => {
+                e0.innerHTML += e.innerHTML
+                postArr.push({ href: e0.querySelector('a').getAttribute('href'), e: e0 })
+            })
+            e.innerHTML = ''
+        })
+        resolve(postArr)
+    }).then((res) => {
+        res.forEach(e0 => {
+            axios.get(e0.href, {}).then((response) => {
+
+
+                response.data = response.data.slice(0, response.data.indexOf('<div id="MySignature"></div>'))
+
+                if (response.data.indexOf('<div id="sop"></div>') != -1) {
+                    // console.log(e0.e.nextElementSibling)
+
+                    // console.log(response.data.slice(response.data.indexOf('<div id="sop"></div>') + '<div id="sop"></div>'.length, response.data.indexOf('<div id="mop"></div>')))
+
+                    e0.e.nextElementSibling.innerHTML = response.data.slice(response.data.indexOf('<div id="sop"></div>') + '<div id="sop"></div>'.length, response.data.indexOf('<div id="mop"></div>'))
+                    e0.e.nextElementSibling.innerHTML += `<a href="` + e0.href + `" class="c_b_p_desc_readmore">阅读全文</a>`
+                }
+            })
+        })
+    })
+
+
+    document.querySelectorAll('#main #mainContent .forFlow .day .postTitle').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1250)
+    })
+
+    document.querySelectorAll('#main #mainContent .forFlow #post_detail .postDesc').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1500)
+    })
+
+    document.querySelectorAll('#main #mainContent .forFlow #post_detail .postTitle').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1250)
+    })
+
+    document.querySelectorAll('#main #mainContent .forFlow #post_detail .postBody').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1500)
+    })
+
+    document.querySelectorAll('#main #mainContent .forFlow .day .postCon').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1500)
+    })
+
+    document.querySelectorAll('#main #mainContent .forFlow .day .postDesc').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1500)
+    })
+
+    document.querySelectorAll('#main #mainContent .forFlow .day .postSeparator').forEach(e => {
+        setTimeout(() => {
+            e.style.opacity = '1'
+            e.style.top = '0'
+        }, 1500)
+    })
+
+
+
+</script>
+
+<script src="//cdn.bootcdn.net/ajax/libs/highlight.js/10.2.0/highlight.min.js"></script>
+<script>
+    document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+    });
+</script>
+
+
+<!-- <script src="//cdn.bootcdn.net/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
+<!-- <script src="/js/blog-common.min.js?v=GDDxNTMu__UMoAAQQRU0L1SpIm25Aa4OuTxtHI5XsGc"></script> -->
+<script async>
+    /**
+    * API 模式 页首 $ 无法获取解决方案 博客园默认会将页首 JS defer 加载, 页尾不受限制该 API 将弃用
+    * API 模式弃用 见 README
+    */
+    // if (themeConfig.mode === 'api')
+    //     const $interval = setInterval(() => {
+    //         console.log($)
+    //         if ($) {
+    //             console.log($)
+    //             clearInterval(interval)
+    //         }
+    //     }, 100)
+</script>
+
+<script async>
+    /**
+    * API 模式 图片 403 解决方案 API 模式弃用 见 README
+    * API 模式弃用 见 README
+    */
+    // if (themeConfig.mode === 'api')
+    //     document.querySelectorAll('img').forEach(e => {
+    //         if (e.getAttribute('src') !== undefined) {
+    //             e.setAttribute('src', e.getAttribute('src').replace(/^(http)[s]*(\:\/\/)/, 'https://images.weserv.nl/?url='))
+    //         }
+    //     })
+</script>
+
+
+<script>
+    /**
+    * 很多人无法申请 API 无法使用 API 模式
+    * 另外 API 模式经过测试无法实现完全的兼容, 现在采用预加载的方案
+    */
+    // axios.get('//www.cnblogs.com/zeerbeer/p/13719866.html', {}).then((response) => {
+    //     console.log(response.data.slice(response.data.indexOf(':::start') + 12, response.data.indexOf(':::eof') - 3))
+    //     console.log(response.data.slice(response.data.indexOf(':::start') + 12, response.data.indexOf(':::more') - 3))
+    // })
+</script>
