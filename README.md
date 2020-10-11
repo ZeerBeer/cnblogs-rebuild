@@ -11,6 +11,10 @@
 - 😏 暗夜模式, 妈妈不用担心我系列
 - ...
 
+## 🤿 [Live Demo](//zeerbeer.cnblogs.com/)
+
+[又一个博客园的 NexT 主题](//zeerbeer.cnblogs.com/)
+
 ## 🎲 食用说明 
 
 > 使用 cnblogs-theme-next-muse 很简单, 只需要准备一个配置项即可, 剩下的交给我们.
