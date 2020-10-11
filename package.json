@@ -1,21 +1,24 @@
 {
-  "name": "cnblogs-rebuild",
+  "name": "cnblogs-theme-next-muse",
   "version": "1.0.0",
-  "description": "API 版本因为一些问题没有好的解决方案 弃用",
+  "description": "又一个博客园的 NexT 主题 🎨",
   "main": "main.js",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode=production"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZeerBeer/cnblogs-rebuild.git"
+    "url": "git+https://github.com/ZeerBeer/cnblogs-theme-next-muse.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ZeerBeer/cnblogs-rebuild/issues"
+    "url": "https://github.com/ZeerBeer/cnblogs-theme-next-muse/issues"
   },
-  "homepage": "https://github.com/ZeerBeer/cnblogs-rebuild#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "homepage": "https://zeerbeer.cnblogs.com/",
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
