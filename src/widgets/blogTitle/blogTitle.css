@@ -1,0 +1,49 @@
+/* 
+（1）定位属性：position  display  float  left  top  right  bottom   overflow  clear   z-index
+（2）自身属性：width  height  padding  border  margin   background
+（3）文字样式：font-family   font-size   font-style   font-weight   font-varient   color   
+（4）文本属性：text-align   vertical-align   text-wrap   text-transform   text-indent    text-decoration   letter-spacing    word-spacing    white-space   text-overflow
+（5）css3中新增属性：content   box-shadow   border-radius  transform…… 
+*/
+
+#blogTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#blogTitle h1 {
+    display: flex;
+    padding: .25rem 2rem;
+
+    background: var(--verse-color);
+}
+
+#blogTitle h2 {
+    display: flex;
+    margin: 1rem 0;
+    top: -1rem;
+    position: relative;
+
+    opacity: 0;
+
+    color: var(--assist-color);
+    font-size: 1rem;
+    font-weight: normal;
+
+    transition: all .5s ease-in-out;
+}
+
+#Header1_HeaderTitle {
+    position: relative;
+    top: -1rem;
+
+    line-height: 1.375rem;
+
+    color: var(--base-color);
+    font-size: 1.375rem;
+    font-weight: normal;
+    opacity: 0;
+
+    transition: all .5s ease-in-out;
+}

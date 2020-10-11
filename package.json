@@ -1,0 +1,36 @@
+{
+  "name": "cnblogs-rebuild",
+  "version": "1.0.0",
+  "description": "API 版本因为一些问题没有好的解决方案 弃用",
+  "main": "main.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeerBeer/cnblogs-rebuild.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZeerBeer/cnblogs-rebuild/issues"
+  },
+  "homepage": "https://github.com/ZeerBeer/cnblogs-rebuild#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "bootstrap": "^4.5.2",
+    "css-loader": "^4.3.0",
+    "jquery": "^3.5.1",
+    "mini-css-extract-plugin": "^1.0.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "popper.js": "^1.16.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "highlight.js": "^10.2.1"
+  }
+}

@@ -1,0 +1,185 @@
+@import 'highlight.js/styles/github.css';
+
+#mainContent a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+#mainContent .forFlow .day .postDesc a {
+    margin-top: .5rem;
+    color: var(--assist-color);
+    font-size: .75rem;
+}
+
+#mainContent .forFlow .day .postSeparator {
+    background: #ccc;
+    height: .1rem;
+    width: 8%;
+    top: -1rem;
+    opacity: 0;
+
+
+    margin: 3rem 0;
+
+    position: relative;
+
+    transition: all .5s ease-in-out;
+}
+
+#mainContent .forFlow .day .postCon {
+    display: flex;
+    flex-direction: column;
+    align-items:  flex-start;
+}
+
+#mainContent .forFlow .day .postCon a {
+    text-decoration: underline;
+}
+
+#mainContent .forFlow .day .postCon h2 {
+    align-self: center;
+}
+
+
+#mainContent .forFlow .day .postCon h3 {
+    align-self: center;
+}
+
+
+#mainContent .forFlow .day .postCon ul {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: flex-start;
+    list-style-type: none;
+}
+
+#mainContent .forFlow .day .postCon p img{
+    max-width: 100%;
+}
+
+#mainContent .forFlow .day .postCon ul li {
+    line-height: 2rem;
+
+    font-size: 1rem;
+}
+
+
+#mainContent .forFlow .day .postCon blockquote p {
+    margin-bottom: 0;
+
+    color: var(--assist-color);
+}
+
+#mainContent .forFlow .day .postCon .c_b_p_desc_readmore {
+    display: flex;
+
+    color: var(--text-color);
+    align-self: center;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    padding: .25rem 1rem;
+    margin-top: 2rem;
+
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#mainContent .forFlow .day .postCon .c_b_p_desc_readmore:hover {
+    color: var(--text-verse-color);
+    background-color: var(--text-color);
+}
+
+
+#mainContent .forFlow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#mainContent .forFlow .dayTitle {
+    display: none;
+}
+
+#mainContent .forFlow .day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#mainContent .forFlow .day .postCon {
+    display: flex;
+    align-self: flex-start;
+    top: -1rem;
+    opacity: 0;
+    width: 100%;
+
+    flex-direction: column;
+    font-size: 1.125rem;
+    color: var(--text-color);
+
+    position: relative;
+
+    transition: all .5s ease-in-out;
+}
+
+#mainContent .forFlow .day .postTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+    top: -1rem;
+    opacity: 0;
+
+    position: relative;
+
+    transition: all .5s ease-in-out;
+}
+
+#mainContent .forFlow .day .postTitle .postTitle2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    border-bottom: rgba(0, 0, 0, 0.0) solid .1rem;
+    color: var(--text-color);
+    line-height: 1.5;
+
+    transition: all .25s ease-in-out;
+}
+
+#mainContent .forFlow .day .postTitle .postTitle2:hover {
+    border-bottom: var(--text-color) solid .1rem;
+    transition: all .25s ease-in-out;
+}
+
+#mainContent .forFlow .day .postTitle a:not(.postTitle2) {
+    margin-top: .5rem;
+    color: var(--assist-color);
+    font-size: .75rem;
+}
+
+#mainContent .forFlow .day .postCon .c_b_p_desc {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.125rem;
+    color: var(--text-color);
+}
+
+#mainContent .forFlow .day .postCon .c_b_p_desc .desc_img {
+    display: flex;
+    align-self: center;
+    float: none;
+    max-width: 100%;
+}
+
+#mainContent .forFlow .day .postDesc {
+    margin-top: .5rem;
+    color: var(--assist-color);
+    font-size: .75rem;
+    top: -1rem;
+    opacity: 0;
+
+    position: relative;
+
+    transition: all .5s ease-in-out;
+}

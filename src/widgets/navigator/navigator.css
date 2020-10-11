@@ -1,0 +1,30 @@
+#navigator {
+    justify-content: center;
+}
+
+#navList {
+    display: flex;
+    position: relative;
+    top: -1rem;
+    opacity: 0;
+    margin: 1rem 0;
+    padding: 0;
+
+    flex-direction: row;
+    justify-content: center;
+
+    list-style-type: none;
+
+    transition: all .5s ease-in-out;
+}
+
+#navList li a {
+    display: flex;
+    margin: 0 .5rem;
+
+    flex-direction: column;
+    align-items: center;
+
+    font-size: .9rem;
+    color: var(--text-color);
+}

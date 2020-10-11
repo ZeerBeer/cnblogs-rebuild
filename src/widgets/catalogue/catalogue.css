@@ -1,0 +1,32 @@
+#post-nav {
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    bottom: 0;
+    background: var(--text-color);
+    color: var(--base-color);
+    transition: all .25s ease-in-out;
+
+    z-index: 10;
+}
+
+#post-nav .nav {
+    display: flex;
+    flex-direction: column;
+}
+
+#post-nav .active {
+    background: var(--base-color) !important;
+    color: var(--text-color) !important;
+}
+
+#post-nav .nav-link {
+    color: var(--base-color);
+}
+
+@media (max-width: 992px) {
+    body {
+        padding-right: 0 !important;
+    }
+}

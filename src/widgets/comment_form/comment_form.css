@@ -1,0 +1,102 @@
+#comment_form {
+    width: 100%;
+    margin-top: 3rem;
+    top: -1rem;
+    opacity: 0;
+    position: relative;
+
+    transition: all .5s ease-in-out;
+}
+
+#comment_form .comment_textarea {
+    background: var(--text-verse-color);
+    width: 100%;
+}
+
+#tbCommentBody {
+    background: var(--text-verse-color);
+    color: var(--text-color);
+}
+
+#tbCommentBodyPreviewBody {
+    background: var(--text-verse-color);
+    color: var(--text-color);
+}
+
+#btn_edit_comment {
+    color: var(--text-color);
+}
+
+#btn_preview_comment {
+    color: var(--text-color);
+}
+
+.commentbox_tab:hover,
+.commentbox_tab.active {
+    color: var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+}
+
+#btn_comment_submit {
+    width: none;
+    height: none;
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+}
+
+#btn_comment_submit:hover {
+    color: var(--text-verse-color);
+    background-color: var(--text-color);
+}
+
+#blog-comments-placeholder {
+
+    width: 100%;
+
+
+}
+
+#blog-comments-placeholder .feedback_area_title {
+
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-size: 1.25em;
+
+}
+
+#blog-comments-placeholder .feedbackItem .feedbackListSubtitle {
+
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+}
+
+#blog-comments-placeholder .feedbackItem .feedbackListSubtitle .feedbackManage {
+
+    font-size: .75rem;
+    justify-self: flex-start;
+
+}
+
+#blog-comments-placeholder .feedbackItem .feedbackListSubtitle .comment_date {
+
+    align-self: center;
+    margin-right: 1rem;
+
+}
+
+#blog-comments-placeholder .feedbackItem .feedbackListSubtitle .comment_date {
+
+    align-self: center;
+    margin-right: 1rem;
+
+}
+
+#blog-comments-placeholder .feedbackItem .feedbackListSubtitle a:last-of-type {
+    align-self: center;
+    margin-right: 1rem;
+}

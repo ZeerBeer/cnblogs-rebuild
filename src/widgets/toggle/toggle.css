@@ -1,0 +1,21 @@
+#toggle {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    right: 2rem;
+    bottom: 3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--verse-color);
+    line-height: 0;
+    z-index: 11;
+    cursor: pointer;
+
+}
+
+#toggle svg {
+    color: var(--base-color);
+}
+
+

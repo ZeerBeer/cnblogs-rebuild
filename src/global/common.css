@@ -1,0 +1,103 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+/* 
+（1）定位属性：position  display  float  left  top  right  bottom   overflow  clear   z-index
+（2）自身属性：width  height  padding  border  margin   background
+（3）文字样式：font-family   font-size   font-style   font-weight   font-varient   color   
+（4）文本属性：text-align   vertical-align   text-wrap   text-transform   text-indent    text-decoration   letter-spacing    word-spacing    white-space   text-overflow
+（5）css3中新增属性：content   box-shadow   border-radius  transform…… 
+*/
+
+/**
+广告和新闻
+**/
+#top_nav,
+#ad_t2,
+#cnblogs_c1,
+#cnblogs_c2,
+#under_post_news,
+#comment_form_container p:last-of-type,
+#comment_form_container .under-comment-nav,
+#commentform_title,
+#navigator .blogStats,
+#under_post_kb,
+#lnkBlogLogo,
+#comment_nav,
+#green_channel,
+#author_profile,
+#div_digg {
+    display: none;
+}
+
+/* 兼容安卓手机(特指x5)只能识别暗黑 */
+:root {
+    --base-color: rgb(255, 255, 255);
+    --verse-color: rgb(0, 0, 0);
+    --text-color: var(--dark);
+    --text-verse-color: var(--light);
+    --assist-color: rgba(0, 0, 0, .5);
+    --code-promt: #eee;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --base-color: rgb(0, 0, 0);
+        --verse-color: rgb(255, 255, 255);
+        --text-color: var(--light);
+        --text-verse-color: rgb(0, 0, 0); /*OLED*/
+        --assist-color: rgba(255, 255, 255, .5);
+        --code-promt: var(--dark);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --base-color: rgb(255, 255, 255);
+        --verse-color: rgb(0, 0, 0);
+        --text-color: var(--dark);
+        --assist-color: rgba(0, 0, 0, .5);
+    }
+}
+
+@media (min-width: 1200px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm {
+        max-width: 960px !important;
+    }
+}
+
+body {
+    background-color: var(--text-verse-color) ;
+    
+    margin: 0;
+    padding: 0;
+
+    color: var(--text-color);
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+
+    transition: all .25s ease-in-out;
+}
+
+#header {
+    display: flex;
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+
+    flex-direction: column;
+    align-items: center;
+}
+
+::-webkit-scrollbar {
+    width: .5rem;
+    height: .5rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-color);
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
