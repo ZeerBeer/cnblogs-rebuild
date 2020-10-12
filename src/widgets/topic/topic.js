@@ -7,7 +7,10 @@ export function topic() {
     querySelectorShow('#post_detail .postDesc', 1000)
     querySelectorShow('#post_detail .postBody', 1000)
     document.querySelectorAll('#cnblogs_post_body pre code').forEach(e => {
-        const lang = e.classList[0]?.split('-')[1] ?? 'text'
-        e.setAttribute('lang', lang)
+        const promt = document.createElement("span")
+        promt.classList.add('lang')
+        promt.innerHTML = `<span>${e.classList[0]?.split('-')[1] ?? 'text'}</span>`
+        console.log(e.parentNode);
+        e.parentNode.insertBefore(promt, e)
     })
 }

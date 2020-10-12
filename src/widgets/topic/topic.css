@@ -3,6 +3,13 @@
 }
 
 
+#cnblogs_post_body p a:after {
+    content: "🔗";
+    font-size: .5rem;
+    position: relative;
+    top: -.5rem;
+}
+
 #topics .post .postTitle {
     align-self: center;
     top: -1rem;
@@ -54,7 +61,7 @@
     flex-direction: column;
 }
 
-#topics [class^=language]:before {
+/* #topics [class^=language]:before {
     content: attr(lang) "";
     display: block;
     background: var(--code-promt);
@@ -63,4 +70,29 @@
     left: -1rem;
     width: calc(100% + 2rem);
     top: -1rem;
+} */
+
+#cnblogs_post_body pre .lang {
+    display: flex;
+    position: relative;
+    top: 1rem;
+    margin-left: .5rem;
+}
+
+#cnblogs_post_body pre .lang span {
+    display: flex;
+    line-height: .75rem;
+    height: .75rem;
+    margin: auto;
+}
+
+#cnblogs_post_body pre .lang:before {
+    content: "";
+    width: .75rem;
+    height: .75rem;
+    background: #f56565;
+    border-radius: 12px;
+    display: flex;
+    line-height: .75rem;
+    box-shadow: 20px 0 0 0 #fbd38d, 40px 0 0 0 #48bb78;
 }
