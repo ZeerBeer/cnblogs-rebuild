@@ -22,7 +22,7 @@ export function mainContent() {
     });
 
     var separator = document.querySelectorAll('#mainContent .forFlow .day .postSeparator');
-    separator ? separator[separator.length - 1].style.display = 'none' : console.error('#mainContent .forFlow .day .postSeparator', '404');
+    separator.length > 0 ? separator[separator.length - 1].style.display = 'none' : console.error('#mainContent .forFlow .day .postSeparator', '404');
 
     graphicalDesc()
     dateSlide()
