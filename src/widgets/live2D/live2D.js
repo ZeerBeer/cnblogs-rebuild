@@ -5,7 +5,7 @@ import {
 export function live2D() {
     if (themeConfig.live2D.load) {
         let host = themeConfig.live2D.live2d_path
-        let unloadedResourceCount = 3;
+        let unloadedResourceCount = 4;
         let callback = (() => {
             return () => {
                 if (!--unloadedResourceCount) {
@@ -29,6 +29,11 @@ export function live2D() {
         loadResources(
             'script',
             host + 'waifu-tips.js',
+            callback
+        )
+        loadResources(
+            'link',
+            themeConfig.live2D.awesome,
             callback
         )
     }

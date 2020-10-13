@@ -23,7 +23,8 @@ const themeConfig = {
         load: false,
         live2d_path: '//cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/',
         waifuPath: '//cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/waifu-tips.json',
-        cdn: '//cdn.jsdelivr.net/gh/fghrsh/live2d_api/'
+        cdn: '//cdn.jsdelivr.net/gh/fghrsh/live2d_api/',
+        awesome: '//cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
     },
     /**
      * 首部的菜单接口 目前预留 基本功能还未实现 采用 file + [tag, arc]
