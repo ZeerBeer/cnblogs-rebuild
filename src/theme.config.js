@@ -17,6 +17,15 @@ const themeConfig = {
     //     grantType: 'client_credentials',
     // },
     /**
+     * 看板娘 load 设置为 true 开启 默认关闭
+    */
+    live2D: {
+        load: false,
+        live2d_path: '//cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/',
+        waifuPath: '//cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/waifu-tips.json',
+        cdn: '//cdn.jsdelivr.net/gh/fghrsh/live2d_api/'
+    },
+    /**
      * 首部的菜单接口 目前预留 基本功能还未实现 采用 file + [tag, arc]
     */
     menu: [
