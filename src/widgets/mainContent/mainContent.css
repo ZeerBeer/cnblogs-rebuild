@@ -160,6 +160,7 @@
 
 #mainContent .forFlow .day .postCon .c_b_p_desc {
     display: flex;
+    width: 100%;
     flex-direction: column;
     font-size: 1.125rem;
     color: var(--text-color);
