@@ -3,7 +3,7 @@ import {
 } from '../../global/utils'
 
 export function dplayer() {
-    console.log(document.querySelector('#dplayer-v'));
+    // console.log(document.querySelector('#dplayer-v'));
     if (document.querySelector('#dplayer-v')) {
         let host = '//cdn.bootcdn.net';
         let unloadedResourceCount = 1;
