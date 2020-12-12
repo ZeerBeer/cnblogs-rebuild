@@ -10,7 +10,6 @@ export function topic() {
         const promt = document.createElement("span")
         promt.classList.add('lang')
         promt.innerHTML = `<span>${e.classList[0]?.split('-')[1] ?? 'text'}</span>`
-        console.log(e.parentNode);
         e.parentNode.insertBefore(promt, e)
     })
 }

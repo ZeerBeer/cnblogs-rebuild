@@ -29,11 +29,11 @@ export function comment_form() {
                 //     callback
                 // )
             } else {
-                console.log(document.querySelector('#comment_form .commentbox_main'));
+                // console.log(document.querySelector('#comment_form .commentbox_main'));
             }
             clearInterval(intval)
         }
-        console.log('555');
+        console.warn('#comment_form.', '404');
     }, 500)
 
 

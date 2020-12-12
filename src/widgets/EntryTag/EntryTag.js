@@ -16,7 +16,8 @@ export function EntryTag() {
             })
             clearInterval(intval)
         }
-        console.log('555');
+        console.warn('#EntryTag','404');
+
     }, 500)
 
 }
