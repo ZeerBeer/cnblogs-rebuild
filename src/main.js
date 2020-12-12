@@ -71,6 +71,11 @@ import {
 import './widgets/EntryTag/EntryTag.css'
 // hljs 
 import './widgets/hljs/hljs.css'
+// blog_comments_placeholder
+import {
+    blog_comments_placeholder
+} from './widgets/blog_comments_placeholder/blog_comments_placeholder'
+import './widgets/blog_comments_placeholder/blog_comments_placeholder.css'
 /**
  * 响应式
  */
@@ -98,6 +103,7 @@ switch (cnblogsRouter[1] ?? 'default.html') {
         EntryTag()
         comment_form()
         footer()
+        blog_comments_placeholder()
         break
 
     case 'default.html':
