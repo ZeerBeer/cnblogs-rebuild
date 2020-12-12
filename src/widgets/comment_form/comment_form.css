@@ -67,14 +67,6 @@
 
 }
 
-#blog-comments-placeholder .feedbackItem .feedbackListSubtitle {
-
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-
-}
-
 #blog-comments-placeholder .feedbackItem .feedbackListSubtitle .feedbackManage {
 
     font-size: .75rem;
