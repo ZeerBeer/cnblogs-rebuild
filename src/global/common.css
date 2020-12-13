@@ -1,5 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
-/* 
+
+/*
 （1）定位属性：position  display  float  left  top  right  bottom   overflow  clear   z-index
 （2）自身属性：width  height  padding  border  margin   background
 （3）文字样式：font-family   font-size   font-style   font-weight   font-varient   color   
@@ -14,8 +15,6 @@
 #ad_t2,
 #cnblogs_c1,
 #cnblogs_c2,
-#under_post_news,
-#comment_form_container p:last-of-type,
 #comment_form_container .under-comment-nav,
 #commentform_title,
 #navigator .blogStats,
@@ -24,7 +23,8 @@
 #comment_nav,
 #green_channel,
 #author_profile,
-#div_digg {
+#div_digg,
+#under_post_news {
     display: none;
 }
 
@@ -69,8 +69,8 @@
 }
 
 body {
-    background-color: var(--text-verse-color) ;
-    
+    background-color: var(--text-verse-color);
+
     margin: 0;
     padding: 0;
 

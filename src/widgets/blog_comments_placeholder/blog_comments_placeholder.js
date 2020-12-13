@@ -7,6 +7,10 @@ export function blog_comments_placeholder() {
         if (comments) {
             if (comments.querySelector(".feedback_area_title")) {
 
+
+                document.querySelector("#tip_comment2").nextElementSibling.innerHTML = ``
+
+
                 comments.querySelectorAll(".feedbackItem").forEach(comment => {
                     // console.log(comment)
                     const feedbackListSubtitle = comment.querySelector(".feedbackListSubtitle")

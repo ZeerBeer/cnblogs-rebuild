@@ -37,11 +37,21 @@
 }
 
 #mainContent .forFlow .day .postCon h2 {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 10px 0;
+
     align-self: center;
 }
 
 
 #mainContent .forFlow .day .postCon h3 {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 10px 0;
+
     align-self: center;
 }
 
@@ -64,6 +74,16 @@
     font-size: 1rem;
 }
 
+#mainContent .forFlow .day .postCon blockquote {
+    background: none;
+    border-left: 3px solid #e2dfdf;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    margin: 10px 0;
+    padding: 5px 10px;
+    color: #555;
+}
 
 #mainContent .forFlow .day .postCon blockquote p {
     margin-bottom: 0;
