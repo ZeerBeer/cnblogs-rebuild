@@ -18,16 +18,16 @@ export function blog_comments_placeholder() {
                     const feedbackListSubtitle = comment.querySelector(".feedbackListSubtitle")
                     const comment_date = feedbackListSubtitle.querySelector(".comment_date")
 
-                    const date = comment_date.innerHTML
-                    const id = comment_date.nextElementSibling.innerHTML
-                    const idUrl = comment_date.nextElementSibling.getAttribute("href")
-                    const layer = comment.querySelector(".layer").innerHTML
+                    const date = comment_date?.innerHTML
+                    const id = comment_date?.nextElementSibling?.innerHTML
+                    const idUrl = comment_date?.nextElementSibling.getAttribute("href")
+                    const layer = comment.querySelector(".layer")?.innerHTML
                     const layerPos = comment.querySelector(".layer").getAttribute("href")
-                    const avatar = comment.querySelector(".comment_vote")?.nextElementSibling.innerHTML
+                    const avatar = comment.querySelector(".comment_vote")?.nextElementSibling?.innerHTML
 
                     const idUsername = comment.querySelector(".comment_date")?.nextElementSibling.getAttribute("id")
 
-                    const op = comment.querySelector(".feedbackManage").innerHTML
+                    const op = comment.querySelector(".feedbackManage")?.innerHTML
 
                     feedbackListSubtitle.innerHTML = `
                         <img class="avatar" src="${avatar}"/>
