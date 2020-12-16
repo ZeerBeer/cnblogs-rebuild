@@ -5,8 +5,10 @@ export function blog_comments_placeholder() {
         const comments = document.querySelector("#blog-comments-placeholder")
 
         if (comments) {
-            if (comments.querySelector(".feedback_area_title")) {
+            if (comments.querySelector(".feedback_area_title") && comments.querySelector(".feedbackNoItems").innerHTML != 'update') {
 
+                // 避免多次渲染性能问题
+                comments.querySelector(".feedbackNoItems").innerHTML = 'update'
 
                 document.querySelector("#tip_comment2").nextElementSibling.innerHTML = ``
 
@@ -20,9 +22,9 @@ export function blog_comments_placeholder() {
 
                     const date = comment_date?.innerHTML
                     const id = comment_date?.nextElementSibling?.innerHTML
-                    const idUrl = comment_date?.nextElementSibling.getAttribute("href")
+                    const idUrl = comment_date?.nextElementSibling?.getAttribute("href")
                     const layer = comment.querySelector(".layer")?.innerHTML
-                    const layerPos = comment.querySelector(".layer").getAttribute("href")
+                    const layerPos = comment.querySelector(".layer")?.getAttribute("href")
                     const avatar = comment.querySelector(".comment_vote")?.nextElementSibling?.innerHTML
 
                     const idUsername = comment.querySelector(".comment_date")?.nextElementSibling.getAttribute("id")

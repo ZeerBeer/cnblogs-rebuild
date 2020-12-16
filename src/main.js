@@ -103,7 +103,15 @@ switch (cnblogsRouter[1] ?? 'default.html') {
         EntryTag()
         comment_form()
         footer()
-        blog_comments_placeholder()
+        // 临时方案 
+        $("#blog-comments-placeholder").bind('DOMNodeInserted', _ => {
+            if (comments_interval != null) {
+                clearTimeout(comments_interval)
+            }
+            comments_interval = setTimeout(function () {
+                blog_comments_placeholder()
+            }, 1000)
+        })
         break
 
     case 'default.html':
@@ -123,6 +131,8 @@ switch (cnblogsRouter[1] ?? 'default.html') {
         footer()
         break
 }
+
+var comments_interval = null
 
 window.onscroll = $_$ => {
     toTop()
