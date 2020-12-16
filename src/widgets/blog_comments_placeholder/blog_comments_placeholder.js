@@ -10,8 +10,6 @@ export function blog_comments_placeholder() {
 
                 document.querySelector("#tip_comment2").nextElementSibling.innerHTML = ``
 
-
-
                 comments.querySelectorAll(".feedbackItem").forEach(comment => {
 
                     comment.querySelector(".comment_vote").innerHTML = ``
@@ -27,12 +25,14 @@ export function blog_comments_placeholder() {
                     const layerPos = comment.querySelector(".layer").getAttribute("href")
                     const avatar = comment.querySelector(".comment_vote")?.nextElementSibling.innerHTML
 
+                    const idUsername = comment.querySelector(".comment_date")?.nextElementSibling.getAttribute("id")
+
                     const op = comment.querySelector(".feedbackManage").innerHTML
 
                     feedbackListSubtitle.innerHTML = `
                         <img class="avatar" src="${avatar}"/>
                         <div style="width: 100%">
-                            <a href="${idUrl}">${id}</a>
+                            <a id ="${idUsername}" href="${idUrl}" >${id}</a>
                             <div style="
                             display: flex;
                             flex-direction: row;
